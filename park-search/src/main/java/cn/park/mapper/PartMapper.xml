@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.park.mapper.PartMapper">
+
+    <select id="findAllPart"  resultType="cn.park.pojo.Part">
+        SELECT pil_info.id,pil_od_place.count oldCount,
+               pil_new_place.count count,pil_info.name as partname,
+               pil_info.type,pil_area.name as aname,pil_city.name cname
+        FROM pil_od_place,pil_new_place,pil_info,pil_area,pil_city
+        WHERE pil_od_place.pid=pil_info.id
+         AND pil_new_place.pid=pil_info.id
+          AND pil_info.aid=pil_area.id
+           AND pil_area.cid=pil_city.id
+    </select>
+
+    <select id="findAllName" resultType="cn.park.pojo.Part">
+        SELECT NAME as aname FROM pil_info
+    </select>
+    <select id="findAllType" resultType="cn.park.pojo.Part">
+        SELECT TYPE FROM pil_info
+    </select>
+</mapper>
+    

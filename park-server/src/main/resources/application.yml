@@ -1,0 +1,13 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: park-server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

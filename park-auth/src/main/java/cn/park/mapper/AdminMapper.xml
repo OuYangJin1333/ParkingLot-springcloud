@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.park.mapper.AdminMapper">
+
+    <resultMap id="BaseResultMap" type="cn.park.pojo.Admin">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="icon" property="icon"/>
+        <result column="email" property="email"/>
+        <result column="login_time" property="login_time"/>
+        <result column="entry_time" property="entry_time"/>
+        <result column="status" property="status"/>
+        <result column="identification" property="identification"/>
+        <result column="phone" property="phone"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+    </resultMap>
+
+    <resultMap id="lazyLoadRoles" type="cn.park.pojo.Admin" extends="BaseResultMap">
+        <collection property="roles" ofType="org.sang.bean.Role" select="cn.park.mapper.AdminMapper.getRolesByHrId"
+                    column="id"></collection>
+    </resultMap>
+
+    <select id="getRolesByHrId" resultType="cn.park.pojo.Role">
+       SELECT r.* FROM `pil_admin_role` p,`pil_role` r WHERE p.rid=r.id AND p.aid=#{id}
+    </select>
+
+    <select id="getAdminByUsername" resultMap="lazyLoadRoles">
+        SELECT * FROM `pil_admin` WHERE `username`=#{username} AND status=1;
+    </select>
+
+    <select id="getAdminById" resultMap="BaseResultMap">
+        SELECT * FROM `pil_admin` WHERE `id`=#{id} AND status=1;
+    </select>
+
+    <update id="putAdmin" parameterType="cn.park.pojo.Admin">
+        UPDATE pil_admin
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="address != null">address=#{address},</if>
+            <if test="password != null">password=#{password},</if>
+        </trim>
+    </update>
+</mapper>

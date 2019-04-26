@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.park.mapper.ChargeMapper">
+
+    <select id="getChargeByMap" resultType="cn.park.pojo.Charge">
+        SELECT pil_city.`name` as name,
+               pil_area.`name` as aname,
+               pil_stop_info.begin_time as beginTime,
+               pil_stop_info.end_time as endTime,
+               pil_stop_info.vid as vid,
+               pil_vip_user.car_number as carNumber,
+               pil_info.name as partName,
+               pil_stop_info_charge.paytype as payType,
+               pil_stop_info_charge.price as money,
+               pil_stop_info_charge.giveprice as givePrice,
+               pil_stop_info_charge.lostprice as lostPrice
+        FROM pil_stop_info,pil_stop_info_charge,pil_info,pil_vip_user,pil_area,pil_city
+        WHERE pil_stop_info.id=pil_stop_info_charge.siid
+        AND pil_stop_info.pid=pil_info.id
+        AND pil_stop_info.vid=pil_vip_user.vid
+        AND pil_info.`id`=pil_stop_info.`pid`
+        AND pil_area.`id`=pil_info.`aid`
+        AND pil_city.`id`=pil_area.`cid`
+        <if test="name!='' and name!=null">
+            and pil_city.name=#{name}
+        </if>
+        <if test="aname!='' and aname!=null">
+            and  pil_area.`name`=#{aname}
+        </if>
+        <if test="partName!='' and partName!=null">
+            and  pil_info.name=#{partName}
+        </if>
+        <if test="carNumber!='' and carNumber!=null">
+            and  pil_vip_user.car_number like concat('%',#{carNumber},'%')
+        </if>
+        <if test="payType!='' and payType!=null">
+            and pil_stop_info_charge.paytype=#{payType}
+        </if>
+        <if test="beginTime!='' and beginTime!=null and endTime!='' and endTime!=null">
+            and #{beginTime} &lt;= pil_stop_info.begin_time
+            and #{endTime} &gt;= pil_stop_info.end_time
+        </if>
+    </select>
+</mapper>
+    

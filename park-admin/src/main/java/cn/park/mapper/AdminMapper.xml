@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.park.mapper.AdminMapper">
+<select id="getAdminByMap" resultType="cn.park.pojo.Admin">
+    SELECT
+    pil_admin.`id` AS id,
+    pil_admin.`username` AS username,
+    pil_admin.`identification` AS identification,
+    pil_department.`name` AS dname,
+    pil_role.`role_name`AS rname ,
+    pil_admin.`phone` AS phone,
+    pil_admin.`email` AS email,
+    pil_admin.`login_time` AS logintime,
+    pil_admin.`entry_time` AS entrytime,
+    pil_admin.`address` AS address,
+    pil_admin.`status`AS STATUS
+    FROM pil_admin,pil_role,pil_department
+    WHERE pil_admin.`roleId` = pil_role.`id`AND
+    pil_admin.`dapartmenId` = pil_department.`id`
+    <if test="username!='' and username!=null">
+        and pil_admin.`username`=#{username}
+    </if>
+    <if test="identification!='' and identification!=null">
+        and pil_admin.`identification`=#{identification}
+    </if>
+    <if test="dname!='' and dname!=null">
+        and  pil_department.`name=#{dname}
+    </if>
+    <if test="rname!='' and rname!=null">
+        and  pil_role.`role_name`=#{rname}
+    </if>
+    <if test="phone!='' and phone!=null">
+        and  pil_admin.`phone`=#{phone}
+    </if>
+    <if test="email!='' and email!=null">
+        and  pil_admin.`email`=#{email}
+    </if>
+
+    <if test="address!='' and address!=null">
+        and  pil_admin.`address`=#{address}
+    </if>
+    <if test="logintime!='' and logintime!=null and entrytime!='' and entrytime!=null">
+        and #{logintime} &lt;=  pil_admin.`login_time`
+        and #{entrytime} &gt;=  pil_admin.`entry_time`
+    </if>
+</select>
+  <insert id="addAdmin" parameterType="cn.park.pojo.Admin" >
+   INSERT INTO
+   `parkinglot`.`pil_admin`
+   ( `username`, `password`, `email`, `login_time`,
+   `entry_time`, `status`, `identification`, `phone`, `sex`,
+    `address`, `dapartmenId`, `roleId`)
+   VALUES
+   (
+    #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+    #{email,jdbcType=VARCHAR},#{logintime,jdbcType=DATE},
+    #{entrytime,jdbcType=DATE}, #{status,jdbcType=BIGINT},
+    #{identification,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{sex,jdbcType=CHAR},
+    #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=BIGINT},#{roleId,jdbcType=BIGINT});
+  </insert>
+
+    <update id="update">
+           UPDATE  pil_admin
+           <set>
+               <if test="username !=null">
+                   username=#{username,jdbcType=VARCHAR},
+               </if>
+               <if test="password !=null">
+                   password=#{password,jdbcType=VARCHAR},
+               </if>
+               <if test="email !=null">
+                   email= #{email,jdbcType=VARCHAR},
+               </if>
+               <if test="login_time !=null">
+                   login_time=#{logintime,jdbcType=DATE},
+               </if>
+               <if test="entry_time !=null">
+                   entry_time=#{entrytime,jdbcType=DATE},
+               </if>
+               <if test="status!=null">
+                   status=#{status,jdbcType=BIGINT},
+               </if>
+               <if test="identification !=null">
+                   identification=#{identification,jdbcType=VARCHAR},
+               </if>
+               <if test="phone!=null">
+                   phone=#{phone,jdbcType=VARCHAR},
+               </if>
+               <if test="sex!=null">
+                   sex=#{sex,jdbcType=CHAR},
+               </if>
+               <if test="address!=null">
+                   address= #{address,jdbcType=VARCHAR},
+               </if>
+               <if test="dapartmenId!=null">
+                   dapartmenId= #{departmentId,jdbcType=BIGINT},
+               </if>
+               <if test="roleId!=null">
+                   roleId=#{roleId,jdbcType=BIGINT}
+               </if>
+           </set>
+        where id=#{id,BIGINT}
+    </update>
+</mapper>

@@ -1,0 +1,32 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8088/eureka/
+server:
+  port: 8080
+spring:
+  application:
+    name: api-admin
+  datasource:
+      slave:
+        url: jdbc:mysql://192.168.249.130:3306/parkinglot?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: 123456
+      master:
+        url: jdbc:mysql://192.168.249.128:3306/parkinglot?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: 123456
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+  redis:
+    database: 0
+    cache.clusterNodes: 192.168.249.130:7001,192.168.249.130:7002,192.168.249.130:7003,192.168.249.130:7004,192.168.249.130:7005,192.168.249.130:7006
+    cache.timeandTimeout: 5000
+logging:
+  level:
+    cn:
+     park:
+      mapper: debug
+mybatis:
+  mapper-locations: classpath*:cn/**/mapper/*.xml

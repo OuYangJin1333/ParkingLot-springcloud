@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.park.mapper.PildepartmentMapper">
+
+   <!-- &lt;!&ndash;根据cid获取节点对象&ndash;&gt;-->
+    <select id="getMasterNode" resultType="cn.park.pojo.Pildepartment">
+
+        select  * from `pil_department` where id=#{id,jdbcType=INTEGER}
+
+    </select>
+
+    <!--&lt;!&ndash;查询cid下的所有子节点pid(SELECT * FROM tb_tree t WHERE t.pid=?)&ndash;&gt;-->
+    <select id="getSlaveNodes" resultType="cn.park.pojo.Pildepartment">
+        select  * from `pil_department` where parentId=#{id,jdbcType=INTEGER}
+
+    </select>
+
+<select id="getAllDepartment" resultType="cn.park.pojo.Pildepartment">
+     select  * from `pil_department`
+</select>
+</mapper>
