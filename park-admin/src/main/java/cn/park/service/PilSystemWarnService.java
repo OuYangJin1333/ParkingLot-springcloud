@@ -9,4 +9,6 @@ public interface PilSystemWarnService {
     List<PilSystemWarn> AllPilSystemWarn();
 
     PilSystemWarn pilSystemWarn(Integer id);
+
+    List<PilSystemWarn> AllpilSystemWarnfy(String title);
 }
