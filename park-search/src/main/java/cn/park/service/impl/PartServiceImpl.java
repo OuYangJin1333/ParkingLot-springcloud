@@ -4,6 +4,7 @@ import cn.park.repository.PartRepository;
 import cn.park.mapper.PartMapper;
 import cn.park.pojo.Part;
 import cn.park.service.PartService;
+import com.alibaba.druid.util.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public void deleteAll() {
-       partRepository.deleteAll();
+        partRepository.deleteAll();
     }
 
     @Override
@@ -42,19 +43,19 @@ public class PartServiceImpl implements PartService {
     @Override
     public Page<Part> findListByEs(Integer pageNumber,Integer pageSize,Part part) {
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
-        if(part.getCname()!=null){
-            builder.must(QueryBuilders.termQuery("cname.keyword", part.getCname()));
+        if(!StringUtils.isEmpty(part.getCname())){
+            builder.must(QueryBuilders.matchQuery("cname.keyword", part.getCname()));
         }
-        if(part.getAname()!=null){
-            builder.must(QueryBuilders.termQuery("aname.keyword", part.getAname()));
+        if(!StringUtils.isEmpty(part.getAname())){
+            builder.must(QueryBuilders.matchQuery("aname.keyword", part.getAname()));
         }
-        if(part.getPartName()!=null){
-            builder.must(QueryBuilders.termQuery("partName.keyword", part.getPartName()));
+        if(!StringUtils.isEmpty(part.getPartName())){
+            builder.must(QueryBuilders.matchQuery("partName.keyword", part.getPartName()));
         }
-        if(part.getType()!=null){
-            builder.must(QueryBuilders.termQuery("type.keyword", part.getType()));
+        if(!StringUtils.isEmpty(part.getType())){
+            builder.must(QueryBuilders.matchQuery("type.keyword", part.getType()));
         }
-        PageRequest page = new PageRequest(pageNumber, pageSize);
+        PageRequest page = new PageRequest(pageNumber-1, pageSize);
         //构建查询
         NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
         //将搜索条件设置到构建中
