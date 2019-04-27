@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.park.mapper.PilLogMapper">
+    <select id="findAllLog" resultType="cn.park.pojo.PilLog">
+             SELECT id,time,aid,content,function,result,terminal_name AS terminalName,terminal_ip AS terminalIp,mac FROM pil_log
+    </select>
+    <delete id="deletLog" parameterType="integer">
+        DELETE FROM pil_log WHERE DATE(TIME) &lt;= DATE(DATE_SUB(NOW(),INTERVAL 90 DAY)) AND id=#{id}
+    </delete>
+</mapper>
+    

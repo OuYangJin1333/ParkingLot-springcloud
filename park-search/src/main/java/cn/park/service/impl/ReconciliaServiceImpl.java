@@ -13,15 +13,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class ReconciliaServiceImpl implements ReconciliaService {
     @Autowired
     private ReconciliaMapper reconciliaMapper;
     @Autowired
     private ReconciliaRepository reconciliaRepository;
+
+
+
     @Override
     public void deleteAll() {
         reconciliaRepository.deleteAll();

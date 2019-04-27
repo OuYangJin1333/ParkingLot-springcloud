@@ -1,14 +1,15 @@
 package cn.park.service.impl;
+
 import cn.park.mapper.ChargeMapper;
 import cn.park.pojo.Charge;
 import cn.park.service.ChargeService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 @Service
+@Transactional(readOnly = true)
 public class ChargeServiceImpl implements ChargeService{
     @Autowired
     private ChargeMapper chargeMapper;
