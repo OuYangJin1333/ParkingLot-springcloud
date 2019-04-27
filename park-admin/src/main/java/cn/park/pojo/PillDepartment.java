@@ -3,11 +3,11 @@ package cn.park.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pildepartment {
+public class PillDepartment {
     private Integer id;
     private  String name ;
     private  Integer parentId;
-    private List<Pildepartment> nodes = new ArrayList();
+    private List<PillDepartment> nodes = new ArrayList();
 
     @Override
     public String toString() {
@@ -23,11 +23,11 @@ public class Pildepartment {
         return id;
     }
 
-    public List<Pildepartment> getNodes() {
+    public List<PillDepartment> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<Pildepartment> nodes) {
+    public void setNodes(List<PillDepartment> nodes) {
         this.nodes = nodes;
     }
 

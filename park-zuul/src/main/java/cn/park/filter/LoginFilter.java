@@ -53,20 +53,24 @@ public class LoginFilter extends ZuulFilter {
             return null;
         }
         //认证身份
-        String accessToken = request.getHeader(CommonConstants.CONTEXT_TOKEN);
+        String accessToken = request.getHeader(CommonConstants.TOKEN);
         if(StringUtils.isEmpty(accessToken)){
-            accessToken = request.getParameter(CommonConstants.TOKEN);
+            return null;
+            //accessToken = request.getParameter(CommonConstants.TOKEN);
         }
         if (null == accessToken) {
             setFailedRequest(RespBean.error401(), 200);
             return null;
         }
-        String token = redisService.getCurrentAdminToken("accessToken");
-        FilterContextHandler.setToken(accessToken);
-        if(!havePermission(request)){
+        //String token = redisService.getCurrentAdminToken(accessToken);
+        /*if(token==null){
+            setFailedRequest(RespBean.error401(), 200);
+        }*/
+        //FilterContextHandler.setToken(accessToken);
+        /*if(!havePermission(request)){
             setFailedRequest(RespBean.error403(), 200);
             return null;
-        }
+        }*/
         return null;
     }
     private boolean havePermission(HttpServletRequest request){

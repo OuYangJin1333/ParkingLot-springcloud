@@ -2,7 +2,7 @@ package cn.park.controller;
 
 
 import cn.park.pojo.Admin;
-import cn.park.pojo.Pildepartment;
+import cn.park.pojo.PillDepartment;
 import cn.park.pojo.Role;
 import cn.park.service.AdminService;
 import cn.park.service.PildepartmentService;
@@ -58,7 +58,7 @@ public class AdminController {
     @RequestMapping(value="/findAllArea",method = RequestMethod.GET)
     @ApiOperation(value = "获取全部角色信息")
     public Object findAllArea(){
-        List<Pildepartment> dList=pildepartmentService.getAll();
+        List<PillDepartment> dList=pildepartmentService.getAll();
         return dList;
     }
     @RequestMapping(value="/addAdmin",method = RequestMethod.POST)

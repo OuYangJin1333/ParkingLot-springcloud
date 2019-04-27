@@ -9,13 +9,13 @@ spring:
     name: api-admin
   datasource:
       slave:
-        url: jdbc:mysql://192.168.249.130:3306/parkinglot?useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://127.0.0.1:3306/parkinglot?useUnicode=true&characterEncoding=utf8
         username: root
-        password: 123456
+        password: root
       master:
-        url: jdbc:mysql://192.168.249.128:3306/parkinglot?useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://127.0.0.1:3306/parkinglot?useUnicode=true&characterEncoding=utf8
         username: root
-        password: 123456
+        password: root
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8

@@ -1,6 +1,5 @@
 package cn.park.pojo;
 
-import javax.management.relation.Role;
 import java.io.Serializable;
 import java.util.List;
 

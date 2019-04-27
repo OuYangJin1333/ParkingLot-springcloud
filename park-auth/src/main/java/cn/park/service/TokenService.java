@@ -24,12 +24,6 @@ public class TokenService{
     public String generateToken(String userAgent, Admin admin)  {
         StringBuilder str=new StringBuilder();
         str.append("token:");
-        UserAgent agent= UserAgent.parseUserAgentString(userAgent);
-        if (agent.getOperatingSystem().isMobileDevice())
-            str.append("MOBILE-");
-        else
-            str.append("PC-");
-        str.append(MD5.getMd5(admin.getPhone(),32)+"-");
         str.append(admin.getId()+"-");
         str.append(new SimpleDateFormat("yyyyMMddHHmmsss").format(new Date())+"-");
         str.append(MD5.getMd5(userAgent,6));

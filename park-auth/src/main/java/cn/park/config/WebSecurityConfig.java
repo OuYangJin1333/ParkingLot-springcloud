@@ -9,8 +9,11 @@ import cn.park.utils.AdminUtils;
 import cn.park.utils.Dto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,6 +31,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -52,29 +58,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     AuthenticationAccessDeniedHandler deniedHandler;
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder(){
-//        return new MD5PasswordEncoder();
-//    }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(adminService).passwordEncoder(new BCryptPasswordEncoder());
-// .passwordEncoder(new PasswordEncoder() {
-//            @Override
-//            public String encode(CharSequence rawPassword) {
-//                return MD5Util.encode((String)rawPassword);
-//            }
-//            @Override
-//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-//                return encodedPassword.equals(MD5Util.encode((String)rawPassword));
-//            }
-//        }
-//        ); //user Details Service验
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
-        web.ignoring().antMatchers("/index.html","/static/**","/login_p","/favicon.ico","/webjars/**","/swagger-ui.html/**");
+        web.ignoring().antMatchers("/**","/","/index.html","/static/**","/login_p","/favicon.ico","/webjars/**","/swagger-ui.html/**");
     }
 
     @Override
@@ -88,13 +80,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         return o;
                     }
                 })
+                .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
+                .permitAll()
+                .antMatchers("/**")//测试时全部运行访问
+                .permitAll()
+                .antMatchers("/")//除上面外的所有请求全部需要鉴权认证
+                .authenticated()
                 .and()
                 .formLogin().loginPage("/login_p").loginProcessingUrl("/login")
                 .usernameParameter("username").passwordParameter("password")
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
-                        resp.setContentType("appliaction/json;charset=utf-8");
+                        resp.setContentType("application/json;charset=utf-8");
                         RespBean respBean=null;
                         if (e instanceof BadCredentialsException ||e instanceof UsernameNotFoundException){
                             respBean=RespBean.error("账户名或密码输入错误");
@@ -120,8 +118,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication auth) throws IOException, ServletException {
-                        resp.setContentType("appliaction/json;charset=utf-8");
-                        RespBean respBean=RespBean.ok("登录成功！", AdminUtils.getCurrentHr());
+                        resp.setContentType("application/json;charset=utf-8");
                         String userAgent=req.getHeader("user-agent");
                         System.err.println(userAgent);
                         Dto dto = new Dto();
@@ -131,6 +128,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         System.err.println( hr.getUsername()+""+ hr.getPhone() );
                         String token=tokenService.generateToken(userAgent,hr);
                         tokenService.save(token,hr);
+                        RespBean respBean=RespBean.ok("登录成功！", token);
                         dto.setIsLogin("true");
                         dto.setToken(token);
                         dto.setTokenCreatedDate(System.currentTimeMillis());
@@ -164,5 +162,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .and().csrf().disable()
                 .exceptionHandling().accessDeniedHandler(deniedHandler);
+    }
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("*");
+        config.setAllowCredentials(true);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(0);
+        return new CorsFilter(source);
     }
 }

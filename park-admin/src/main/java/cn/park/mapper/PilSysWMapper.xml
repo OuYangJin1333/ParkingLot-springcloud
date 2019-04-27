@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.park.mapper.PilSysWMapper">
+    <select id="AllPilSysW" resultType="cn.park.pojo.PilSystemWarn">
+        SELECT * from pil_system_warn
+    </select>
+    <select id="pilSysW" resultType="cn.park.pojo.PilSystemWarn" parameterType="java.lang.Integer">
+        SELECT * FROM `pil_system_warn` WHERE id=#{id}
+    </select>
+    <select id="pagingpilSysW" resultType="cn.park.pojo.PilSystemWarn">
+        SELECT * FROM `pil_system_warn` where 1=1
+        <if test="title!=null">
+            and title like concat('%',#{title},'%')
+        </if>
+        ORDER BY `create_time` DESC
+    </select>
+</mapper>

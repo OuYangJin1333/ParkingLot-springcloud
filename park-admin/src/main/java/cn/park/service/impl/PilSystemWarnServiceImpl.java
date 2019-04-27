@@ -1,5 +1,6 @@
 package cn.park.service.impl;
 
+import cn.park.mapper.PilSysWMapper;
 import cn.park.mapper.PilSystemWarnMapper;
 import cn.park.pojo.PilSystemWarn;
 import cn.park.service.PilSystemWarnService;
@@ -14,16 +15,22 @@ import java.util.List;
 public class PilSystemWarnServiceImpl implements PilSystemWarnService {
 
     @Autowired
-    PilSystemWarnMapper pilSystemWarnMapper;
+    PilSysWMapper pilSysWMapper;
     @Transactional(readOnly = true)
     @Override
     public List<PilSystemWarn> AllPilSystemWarn() {
-        return pilSystemWarnMapper.AllPilSystemWarn();
+        return pilSysWMapper.AllPilSysW();
     }
 
     @Transactional(readOnly = true)
     @Override
     public PilSystemWarn pilSystemWarn(Integer id) {
-        return pilSystemWarnMapper.pilSystemWarn(id);
+        return pilSysWMapper.pilSysW(id);
     }
+
+    @Override
+    public List<PilSystemWarn> AllpilSystemWarnfy(String title) {
+        return pilSysWMapper.pagingpilSysW(title);
+    }
+
 }

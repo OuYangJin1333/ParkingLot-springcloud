@@ -1,16 +1,11 @@
 package cn.park;
 
-import cn.park.pojo.PilSystem;
-import cn.park.service.PilSystemAdminService;
-import cn.park.service.RedisService;
-import cn.park.template.RedisClientTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
+/*import cn.park.service.PilSystemAdminService;*/
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,12 +20,12 @@ public class TestRedis {
         System.out.println(redisService.remove("ouyang"));
     }*/
 
-    @Autowired
+   /* @Autowired
     PilSystemAdminService pilSystemAdminService;
-
+*/
     @Test
     public void mysqlMS(){
-        PilSystem pilSystem = new PilSystem();
+       /* PilSystem pilSystem = new PilSystem();
         pilSystem.setAid(1);
         pilSystem.setContent("测试内容");
         pilSystem.setCreateTime(new Date());
@@ -39,6 +34,6 @@ public class TestRedis {
         pilSystem.setTid(1);
         pilSystemAdminService.addPilSystem(pilSystem);
         PilSystem pil = pilSystemAdminService.getPilSystemById(14);
-        System.out.println(pil);
+        System.out.println(pil);*/
     }
 }

@@ -26,7 +26,7 @@ public class CustomMetadataSource implements FilterInvocationSecurityMetadataSou
         List<Menu> allMenu=menuService.getAllMenu();//获取菜单资源
         for (Menu menu:allMenu){
             //角色
-            if (antPathMatcher.match(menu.getUrl(),requestUrl)&&menu.getRoles().size()>0){
+            //if (antPathMatcher.match(menu.getUrl(),requestUrl)&&menu.getRoles().size()>0){
                 List<Role> roles=menu.getRoles();
                 int size=roles.size();
                 String[] values=new String[size];
@@ -34,7 +34,7 @@ public class CustomMetadataSource implements FilterInvocationSecurityMetadataSou
                     values[i]=roles.get(i).getRole_name();
                 }
                 return SecurityConfig.createList(values);//创建一个角色集合
-            }
+            //}
         }
         //没有匹配上的资源，都是登录访问
         return SecurityConfig.createList("ROLE_LOGIN");
