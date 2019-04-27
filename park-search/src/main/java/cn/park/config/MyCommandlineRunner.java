@@ -1,6 +1,6 @@
 package cn.park.config;
-import cn.park.Repository.ReconciliaRepository;
-import cn.park.service.ReconciliaService;
+import cn.park.Repository.PilLogRepository;
+import cn.park.service.PilLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,14 @@ public class MyCommandlineRunner implements CommandLineRunner {
     StopCarRepository stopCarRepository;
     @Autowired
     StopCarService stopCarService;*/
-    @Autowired
+    /*@Autowired
     ReconciliaRepository reconciliaRepository;
     @Autowired
-    ReconciliaService reconciliaService;
+    ReconciliaService reconciliaService;*/
+    @Autowired
+    PilLogRepository pilLogRepository;
+    @Autowired
+    PilLogService pilLogService;
 
 
     public void run(String... args) throws Exception {
@@ -27,8 +31,10 @@ public class MyCommandlineRunner implements CommandLineRunner {
         partService.importAll();*/
         /*stopCarService.deleteAll();
         stopCarService.importAll();*/
-        reconciliaService.deleteAll();
-        reconciliaService.importAll();
+       /* reconciliaService.deleteAll();
+        reconciliaService.importAll();*/
+       pilLogService.deleteAll();
+       pilLogService.importAll();
 
     }
 

@@ -14,18 +14,18 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class StopCarServiceImpl implements StopCarService {
 
     @Autowired
     private StopMapper stopMapper;
     @Autowired
     private StopCarRepository stopCarRepository;
-    @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;
 
     @Override
     public void deleteAll() {

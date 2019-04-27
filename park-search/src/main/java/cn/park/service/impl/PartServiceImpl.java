@@ -14,17 +14,17 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class PartServiceImpl implements PartService {
     @Autowired
     PartMapper partMapper;
     @Autowired
     PartRepository partRepository;
-    @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;
 
     @Override
     public void deleteAll() {
