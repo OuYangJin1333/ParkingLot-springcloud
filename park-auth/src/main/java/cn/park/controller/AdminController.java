@@ -3,12 +3,15 @@ package cn.park.controller;
 import cn.park.pojo.Admin;
 import cn.park.pojo.RespBean;
 import cn.park.service.AdminService;
+import cn.park.service.TokenService;
 import cn.park.utils.AdminUtils;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +19,9 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     AdminService adminService;
+    @Autowired
+    TokenService tokenService;
+
 
     @RequestMapping("/putAdmin")
     public RespBean putAdmin(Admin admin){
@@ -24,6 +30,20 @@ public class AdminController {
             return RespBean.ok("修改成功!");
         }else
         return RespBean.error("修改失败!");
+    }
+
+    @RequestMapping("/login")
+    public RespBean login(String username, String password, HttpServletRequest request){
+        String userAgent=request.getHeader("user-agent");
+        Admin admin = new Admin();
+        admin.setUsername(username);
+        admin.setPassword(password);
+        UserDetails userDetails = adminService.loadUserByUsername(username);
+        if(!userDetails.getPassword().equals(password)){
+            return RespBean.error("账号或密码错误");
+        }
+        String token=tokenService.generateToken(userAgent,admin);
+        return RespBean.ok("登录成功",token);
     }
 
     @RequestMapping(value = "/getAdmin",method = RequestMethod.GET)

@@ -18,7 +18,7 @@ public class MenuController {
     MenuService menuService;
     @ApiOperation(value = "查询菜单",notes = "根据ID查询菜单")
     @RequestMapping("/sysmenu")
-    public List<Menu> sysmenu() {
+    public List<Menu> userMenus() {
         return menuService.getMenusByAdminId();
     }
 }

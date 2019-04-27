@@ -7,3 +7,13 @@ server:
 spring:
   application:
     name: api-search
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/parkinglot?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: cnm18274003491
+  data:
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      cluster-name: elasticsearch
+      repositories:
+        enabled: true

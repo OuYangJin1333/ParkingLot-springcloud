@@ -26,8 +26,9 @@ public class MenuService {
 
     /**/
     public List<Menu> getMenusByAdminId() {
-        System.err.println("用户ID："+AdminUtils.getCurrentHr().getId());
-        return menuMapper.getMenusByAdminId(AdminUtils.getCurrentHr().getId());
+        //System.err.println("用户ID："+AdminUtils.getCurrentHr().getId());
+        //return menuMapper.getMenusByAdminId(AdminUtils.getCurrentHr().getId());
+        return menuMapper.getMenusByAdminId(1);
     }
 
 }

@@ -10,10 +10,11 @@ import java.util.List;
 
 @Service
 public class PilvipUserServiceImpl implements PilvipUserService {
-    @Autowired
-    PilVipUserMapper pilVipUserMapper;
+//    @Autowired
+//    PilVipUserMapper pilVipUserMapper;
     @Override
     public List<PilVipUser> AllPvu(String vid, String name, String sex, String identification, String phone, String carNumber, String star, String end) {
-        return pilVipUserMapper.getPilVipUser(vid,name,sex,identification,phone,carNumber,star,end);
+//        return pilVipUserMapper.getPilVipUser(vid,name,sex,identification,phone,carNumber,star,end);
+        return null;
     }
 }
