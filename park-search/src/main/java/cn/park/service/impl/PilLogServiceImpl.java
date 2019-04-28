@@ -49,8 +49,11 @@ public class PilLogServiceImpl implements PilLogService {
     @Override
     public Page<PilLog> findAllByEs(Integer pageNumber, Integer pageSize, PilLog pilLog) {
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
-        if(!StringUtils.isEmpty(pilLog.getAid())){
+        /*if(!StringUtils.isEmpty(pilLog.getAid())){
             builder.must(QueryBuilders.wildcardQuery("aid.keyword","*"+pilLog.getAid()+"*"));
+        }*/
+        if(!StringUtils.isEmpty(pilLog.getAid())) {
+            builder.must(QueryBuilders.prefixQuery("aid.keyword", pilLog.getAid()));
         }
         if(!StringUtils.isEmpty(pilLog.getFunction())){
             builder.must(QueryBuilders.wildcardQuery("function.keyword","*"+pilLog.getFunction()+"*"));
@@ -73,11 +76,7 @@ public class PilLogServiceImpl implements PilLogService {
 
     @Override
     public int delete(Integer id) {
-        int result=pilLogMapper.deletLog(id);
-        if(result<0){
-            return -1;
-        }
-        return result;
+        return pilLogMapper.deletLog(id);
     }
 
     /**

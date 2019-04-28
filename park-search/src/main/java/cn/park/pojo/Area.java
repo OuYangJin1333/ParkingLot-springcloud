@@ -4,15 +4,15 @@ package cn.park.pojo;
  * 区域表
  */
 public class Area {
-    private int id;
+    private Integer id;
     private String name;
     private int cid;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -11,7 +11,7 @@ import java.util.Date;
 @Document(indexName = "pillog",type = "pillog",shards = 1,replicas = 0)
 public class PilLog {
     @Id
-    private int id;
+    private Integer id;
     private Date time;
     private String aid;
     private String content;
@@ -21,11 +21,11 @@ public class PilLog {
     private String terminalIp;
     private String mac;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

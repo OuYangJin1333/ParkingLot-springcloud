@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
+/**
+ * 日志查询
+ */
 public interface PilLogService {
 
     public void deleteAll();

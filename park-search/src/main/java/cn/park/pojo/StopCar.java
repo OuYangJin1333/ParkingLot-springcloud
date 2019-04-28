@@ -8,7 +8,7 @@ import java.util.Date;
 @Document(indexName = "stopcar",type = "stopcar",shards = 1,replicas = 0)
 public class StopCar {
     @Id
-    private int id;
+    private Integer id;
     private String cname;
     private String aname;
     private String partName;
@@ -25,11 +25,11 @@ public class StopCar {
         this.vid = vid;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

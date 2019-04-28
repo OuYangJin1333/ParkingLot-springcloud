@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "part",type = "part",shards = 1,replicas = 0)
 public class Part {
     @Id
-    private int id;           //id
+    private Integer id;           //id
     private String cname;        //城市
     private String aname;         //区域
     private String partName;       //停车场名称
@@ -17,11 +17,11 @@ public class Part {
     private int count;           //总车位
     private int oldCount;            //剩余车位
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

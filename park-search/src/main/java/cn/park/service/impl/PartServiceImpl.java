@@ -1,6 +1,6 @@
 package cn.park.service.impl;
 
-import cn.park.repository.PartRepository;
+import cn.park.Repository.PartRepository;
 import cn.park.mapper.PartMapper;
 import cn.park.pojo.Part;
 import cn.park.service.PartService;
@@ -10,7 +10,6 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;

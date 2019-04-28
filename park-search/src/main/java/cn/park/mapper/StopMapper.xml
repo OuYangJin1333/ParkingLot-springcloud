@@ -4,17 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.park.mapper.StopMapper">
     <select id="findAllStop" resultType="cn.park.pojo.StopCar">
-        SELECT  pil_vip_user.id,pil_city.name AS cname,
-                pil_area.name as aname,
-                pil_info.name as partName,
-                pil_stop_info.begin_time as beginTime,
-                pil_stop_info.end_time as endTime,
-                pil_stop_info.vid as vid,
-                pil_vip_user.car_number as carNumber
+       SELECT  pil_vip_user.id,pil_city.name AS cname,
+                pil_area.name AS aname,
+                pil_info.name AS partName,
+                pil_stop_info.begin_time AS beginTime,
+                pil_stop_info.end_time AS endTime,
+                pil_stop_info.vid AS vid,
+                pil_vip_user.car_number AS carNumber
                 FROM pil_city,pil_area,pil_stop_info,pil_vip_user,pil_info
                 WHERE pil_area.cid=pil_city.id
                 AND pil_stop_info.vid=pil_vip_user.vid
                 AND pil_info.aid=pil_area.id
+                GROUP BY   pil_stop_info.vid
     </select>
 </mapper>
     

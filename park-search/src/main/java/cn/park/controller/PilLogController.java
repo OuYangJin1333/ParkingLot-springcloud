@@ -38,10 +38,10 @@ public class PilLogController {
     @ApiOperation(value = "删除日志记录")
     public Object deleteLog(Integer id){
         int result=pilLogService.delete(id);
-        if(result==-1){
-            System.out.println("删除失败，未超过三个月");
-        }else{
+        if(result>0){
             System.out.println("删除成功");
+        }else{
+            System.out.println("删除失败，未超过三个月");
         }
         return result;
     }

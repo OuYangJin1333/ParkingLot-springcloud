@@ -6,20 +6,21 @@
 
     <select id="findAllPart"  resultType="cn.park.pojo.Part">
         SELECT pil_info.id,pil_od_place.count oldCount,
-               pil_new_place.count count,pil_info.name as partname,
-               pil_info.type,pil_area.name as aname,pil_city.name cname
+               pil_new_place.count COUNT,pil_info.name AS partname,
+               pil_info.type,pil_area.name AS aname,pil_city.name cname
         FROM pil_od_place,pil_new_place,pil_info,pil_area,pil_city
         WHERE pil_od_place.pid=pil_info.id
          AND pil_new_place.pid=pil_info.id
           AND pil_info.aid=pil_area.id
            AND pil_area.cid=pil_city.id
+           GROUP BY pil_info.name
     </select>
 
     <select id="findAllName" resultType="cn.park.pojo.Part">
         SELECT NAME as aname FROM pil_info
     </select>
     <select id="findAllType" resultType="cn.park.pojo.Part">
-        SELECT TYPE FROM pil_info
+        SELECT DISTINCT TYPE FROM pil_info
     </select>
 </mapper>
     

@@ -4,14 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.park.mapper.ReconciliaMapper">
     <select id="getAllReconcilia" resultType="cn.park.pojo.Reconcilia">
-        SELECT pil_info.id,pil_city.name as cname,pil_area.name as aname,
-               pil_info.name as pname,pil_info.desc as describle,
-	          pil_stop_info_charge.price, pil_stop_info_charge.paytype as payType,
-	          pil_stop_info.begin_time as happen
+        SELECT pil_info.id,pil_city.name AS cname,pil_area.name AS aname,
+               pil_info.name AS pname,pil_info.desc AS describle,
+	          pil_stop_info_charge.price, pil_stop_info_charge.paytype AS payType,
+	          pil_stop_info.begin_time AS happen
 	   FROM pil_city,pil_area,pil_info,pil_stop_info,pil_stop_info_charge
 	   WHERE pil_city.id=pil_area.cid
 	    AND  pil_stop_info_charge.siid=pil_stop_info.id
 	    AND pil_info.aid=pil_area.id
+	    GROUP BY pil_info.name
     </select>
 </mapper>
 

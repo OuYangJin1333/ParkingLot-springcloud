@@ -34,13 +34,13 @@ public class PartController {
         return ExportPart.exportExcel(partService.getAll());
     }
 
-    @GetMapping("/findAllName")
+    @PostMapping("/findAllName")
     @ApiOperation(value = "停车场名称")
     public Object findName(){
         return partService.getAllName();
     }
 
-    @GetMapping("/findAllType")
+    @PostMapping("/findAllType")
     @ApiOperation(value = "停车场类型")
     public Object findType(){
         return partService.getAllType();

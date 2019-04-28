@@ -1,4 +1,4 @@
-package cn.park.repository;
+package cn.park.Repository;
 import cn.park.pojo.Part;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
