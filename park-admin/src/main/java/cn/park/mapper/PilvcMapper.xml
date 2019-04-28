@@ -36,8 +36,8 @@
     <update id="updatepvc">
         update pil_vip_complain
         <set>
-            aid=#{aid,jdbcType=INTEGER}
-            status#{status,jdbcType=VARCHAR}
+            aid=#{aid,jdbcType=INTEGER},
+            status=#{status,jdbcType=VARCHAR},
             advice=#{advice,jdbcType=VARCHAR}
         </set>
         where id=#{id,jdbcType=INTEGER}
