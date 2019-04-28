@@ -37,7 +37,7 @@
         update pil_vip_complain
         <set>
             aid=#{aid,jdbcType=INTEGER},
-            status=#{status,jdbcType=VARCHAR},
+            status='已处理',
             advice=#{advice,jdbcType=VARCHAR}
         </set>
         where id=#{id,jdbcType=INTEGER}

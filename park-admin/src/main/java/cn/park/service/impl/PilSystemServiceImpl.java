@@ -25,7 +25,7 @@ public class PilSystemServiceImpl implements PilSystemService{
     }
 
     @Override
-    public List<PilSystem> fenyepilSystem(Integer tid, String title) {
-        return pilSysMapper.pagingpilSys(tid,title);
+    public List<PilSystem> fenyepilSystem(Integer id, String title) {
+        return pilSysMapper.pagingpilSys(id,title);
     }
 }

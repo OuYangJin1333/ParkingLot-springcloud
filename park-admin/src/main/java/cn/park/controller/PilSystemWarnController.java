@@ -23,13 +23,13 @@ public class PilSystemWarnController {
     public List AllPilSystemWarn() {
         return pilSystemWarnService.AllPilSystemWarn();
     }
-    @GetMapping("/pilSystemWarnxiang")
-    @ApiOperation(value = "获取系统告警列表信息")
-    public PilSystemWarn AllPilSystemWarn(Integer id) {
+    @GetMapping("/pilSystemWarnxiang/{id}")
+    @ApiOperation(value = "获取系统告警详细信息")
+    public PilSystemWarn AllPilSystemWarn(@PathVariable Integer id) {
         return pilSystemWarnService.pilSystemWarn(id);
     }
-    @RequestMapping(value="/fenyePilSystemWarn",produces = "application/json", method = RequestMethod.GET)
-    @ApiOperation(value = "获取告警列表信息")
+    @GetMapping("/fenyePilSystemWarn")
+    @ApiOperation(value = "获取全部告警列表信息")
     public RespBean fenyePilSystem(@RequestParam(value="title",required=false,defaultValue="") String title,
                                    @RequestParam(value = "pageIndex",required = false,defaultValue = "1") @ApiParam(value = "页数") Integer pageIndex,
                                    @RequestParam(value = "pageSize",defaultValue = "2") @ApiParam(value = "页面大小") Integer pageSize){

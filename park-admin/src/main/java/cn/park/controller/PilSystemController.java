@@ -23,9 +23,9 @@ public class PilSystemController {
     @Autowired
     PilSystemtypeService pilSystemtypeService;
 
-    @GetMapping("/pilSystemlist")
+    @GetMapping("/pilSystemlist/{id}")
     @ApiOperation(value = "获取系统公告信息")
-    public List AllPilSystem(Integer id) {
+    public List AllPilSystem(@PathVariable Integer id) {
         int tid=0;
         if(id==2){
             tid=1;
@@ -39,9 +39,9 @@ public class PilSystemController {
         List<PilSystem> allPilInfo = pilSystemService.pilSystemList(tid);
         return allPilInfo;
     }
-    @GetMapping("/chaSystemlist")
+    @GetMapping("/chaSystemlist/{id}")
     @ApiOperation(value = "获取详细公告信息")
-    public PilSystem chaPilSystem(Integer id) {
+    public PilSystem chaPilSystem(@PathVariable Integer id) {
         PilSystem system = pilSystemService.pilSystem(id);
         PilSystemType pilSystemType=pilSystemtypeService.pilSystemType(system.getTid());
         if(pilSystemType.getIsvip()==1){
@@ -50,24 +50,24 @@ public class PilSystemController {
             return null;
         }
     }
-    @GetMapping(value="/fenyePilSystem")
+    @GetMapping(value="/fenyePilSystem/{id}")
     @ApiOperation(value = "获取公告列表信息")
-    public RespBean fenyePilSystem(@RequestParam(value="tid",required=false)Integer tid,
+    public RespBean fenyePilSystem(@PathVariable Integer id,
                                    @RequestParam(value="title",required=false,defaultValue="") String title,
                                    @RequestParam(value = "pageIndex",required = false,defaultValue = "1") @ApiParam(value = "页数") Integer pageIndex,
                                    @RequestParam(value = "pageSize",defaultValue = "2") @ApiParam(value = "页面大小") Integer pageSize){
-        int id=0;
-        if(tid==2){
-            id=1;
-        }else if(tid==3){
-            id=2;
-        }else if(tid==4){
-            id=2;
-        }else {
-            id=0;
+        int tid=0;
+        if(id==2){
+            tid=1;
+        }else if(id==3){
+            tid=2;
+        }else if(id==4){
+            tid=3;
+        }else{
+            tid=0;
         }
         PageHelper.startPage(pageIndex,pageSize);
-        List<PilSystem> psList=pilSystemService.fenyepilSystem(id,title);
+        List<PilSystem> psList=pilSystemService.fenyepilSystem(tid,title);
         return new RespBean().pageSuccess(psList);
     }
 }

@@ -32,25 +32,24 @@ public class PilVipComplainController {
         List<PilVipComplain> pvcList= complainService.Allpvc(content,name,star,end,status,username);
         return new RespBean().pageSuccess(pvcList);
     }
-    @GetMapping("/getPvc")
+    @GetMapping("/getPvc/{id}")
     @ApiOperation(value = "获取投诉详细信息")
-    public PilVipComplain pvc(Integer id){
+    public PilVipComplain pvc(@PathVariable Integer id){
         PilVipComplain pilVipComplain=complainService.pvc(id);
         return pilVipComplain;
     }
-    @GetMapping(value="/updatepvc/{id}")
+    @PutMapping(value="/updatepvc/{id}")
     @ApiOperation(value = "填写建议信息")
-    public RespBean update(@RequestParam(value = "aid")Integer aid,@RequestParam(value = "status",required = false,defaultValue = "已处理")String status,@RequestParam(value = "advice")String advice,@PathVariable Integer id){
+    public RespBean update(@RequestParam(value = "aid")Integer aid,@RequestParam(value = "advice")String advice,@PathVariable Integer id){
         PilVipComplain pvcs=new PilVipComplain();
         pvcs.setAid(aid);
-        pvcs.setStatus(status);
         pvcs.setAdvice(advice);
         pvcs.setId(id);
         int rearue=complainService.update(pvcs);
         if(rearue>0){
-            return RespBean.ok("修改成功");
+            return RespBean.ok("处理成功");
         }else{
-            return RespBean.error("出现错误,修改失败");
+            return RespBean.error("出现错误,处理失败");
         }
     }
 }
