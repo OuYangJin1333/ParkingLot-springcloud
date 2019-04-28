@@ -1,5 +1,6 @@
 package cn.park.service.impl;
 
+import cn.park.mapper.RoleMapper;
 import cn.park.pojo.Role;
 import cn.park.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,26 @@ import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    RoleService roleService;
+      @Autowired
+      RoleMapper roleMapper;
 
     @Override
-    public List<Role> getAllRole() {
-        return roleService.getAllRole();
+    public List<Role> getAllRole(String rname) {
+        return  roleMapper.getAllRole(rname);
+    }
+
+    @Override
+    public List<Role> getRole() {
+        return roleMapper.getRole() ;
+    }
+
+    @Override
+    public int add(Role role) {
+        return roleMapper.add(role);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return roleMapper.delete(id);
     }
 }

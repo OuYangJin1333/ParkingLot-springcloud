@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="cn.park.mapper.PiladminroleMapper">
+      <insert id="add">
+               INSERT INTO `pil_admin_role`(`aid`,`rid`) VALUES (#{aid},#{rid})
+      </insert>
+
+    <update id="update">
+         UPDATE  pil_admin_role
+          <set>
+              <if test="rid!=null || rid!=''">
+                  rid=#{rid}
+              </if>
+          </set>
+        where aid=#{aid}
+    </update>
+</mapper>

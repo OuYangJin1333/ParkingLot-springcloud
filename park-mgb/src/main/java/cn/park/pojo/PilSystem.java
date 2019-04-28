@@ -25,7 +25,7 @@ public class PilSystem implements Serializable {
      *
      * @mbggenerated
      */
-    private Date create_time;
+    private Date createTime;
 
     /**
      * 公告内容
@@ -74,11 +74,11 @@ public class PilSystem implements Serializable {
     }
 
     public Date getCreateTime() {
-        return create_time;
+        return createTime;
     }
 
     public void setCreateTime(Date createTime) {
-        this.create_time = createTime;
+        this.createTime = createTime;
     }
 
     public String getContent() {
@@ -122,7 +122,7 @@ public class PilSystem implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
         sb.append(", tid=").append(tid);
-        sb.append(", create_time=").append(create_time);
+        sb.append(", create_time=").append(createTime);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

@@ -1,12 +1,62 @@
 package cn.park.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 public class Role {
+       @ApiModelProperty(   hidden = true)
       private  int   id;
-      private  String  role_name;
-      private  Date create_time;
-      private  int  status;
+      private  String  rname;
+      private  Date createtime;
+      @ApiModelProperty(   hidden = true)
+      private  int  status;//是否启用    否为0 是为1
+      @ApiModelProperty(   hidden = true)
+      private  String  dname;
+      private  String desc;
+      @ApiModelProperty(   hidden = true)  //描述
+      private  int departmentId;    //部门外键Id
+
+    public String getRname() {
+        return rname;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setRname(String rname) {
+
+        this.rname = rname;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDname() {
+        return dname;
+    }
+
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public int getId() {
         return id;
@@ -16,27 +66,25 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole_name() {
-        return role_name;
+
+
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 
-    public Date getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", rname='" + rname + '\'' +
+                ", createtime=" + createtime +
+                ", status=" + status +
+                ", dname='" + dname + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
     }
 }

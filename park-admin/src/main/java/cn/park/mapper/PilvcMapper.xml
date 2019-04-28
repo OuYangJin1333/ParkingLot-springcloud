@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.park.mapper.PilvcMapper">
-    <select id="Allpilvp" resultType="cn.park.pojo.PilVipComplain">
+    <resultMap id="BaseResultMap" type="cn.park.pojo.PilVipComplain">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="vid" jdbcType="VARCHAR" property="vid" />
+        <result column="complain_time" jdbcType="TIMESTAMP" property="complainTime" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="aid" jdbcType="INTEGER" property="aid" />
+        <result column="advice" jdbcType="VARCHAR" property="advice" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.park.pojo.PilVipComplain">
+        <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    </resultMap>
+    <select id="Allpilvp" resultMap="ResultMapWithBLOBs">
         SELECT c.id,c.`content`,u.`name`,c.`complain_time`,c.`status`,a.`username`,c.`advice`FROM `pil_vip_complain` AS c LEFT JOIN `pil_admin` AS a ON a.`id`=c.`aid` INNER JOIN `pil_vip_user` AS u ON u.`vid`=c.`vid` WHERE 1=1
         <if test="content!=null">
             and c.content like concat('%',#{content},'%')
@@ -19,14 +30,14 @@
             and a.username like concat('%',#{username},'%')
         </if>
     </select>
-    <select id="getpvc" resultType="cn.park.pojo.PilVipComplain">
+    <select id="getpvc" resultMap="ResultMapWithBLOBs">
         SELECT * FROM `pil_vip_complain` WHERE id=#{id}
     </select>
     <update id="updatepvc">
         update pil_vip_complain
         <set>
-            aid=#{aid,jdbcType=INTEGER}
-            status#{status,jdbcType=VARCHAR}
+            aid=#{aid,jdbcType=INTEGER},
+            status='已处理',
             advice=#{advice,jdbcType=VARCHAR}
         </set>
         where id=#{id,jdbcType=INTEGER}

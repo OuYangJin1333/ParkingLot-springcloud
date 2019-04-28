@@ -21,5 +21,5 @@ public interface PilSystemService {
     /**
      * 标题分页查询
      */
-    List<PilSystem> fenyepilSystem(Integer tid,String title);
+    List<PilSystem> fenyepilSystem(Integer id,String title);
  }

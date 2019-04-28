@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.park.mapper.PilSysWMapper">
-    <select id="AllPilSysW" resultType="cn.park.pojo.PilSystemWarn">
+    <resultMap id="BaseResultMap" type="cn.park.pojo.PilSystemWarn">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.park.pojo.PilSystemWarn">
+        <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    </resultMap>
+    <select id="AllPilSysW" resultMap="ResultMapWithBLOBs">
         SELECT * from pil_system_warn
     </select>
-    <select id="pilSysW" resultType="cn.park.pojo.PilSystemWarn" parameterType="java.lang.Integer">
+    <select id="pilSysW" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
         SELECT * FROM `pil_system_warn` WHERE id=#{id}
     </select>
-    <select id="pagingpilSysW" resultType="cn.park.pojo.PilSystemWarn">
+    <select id="pagingpilSysW" resultMap="ResultMapWithBLOBs">
         SELECT * FROM `pil_system_warn` where 1=1
         <if test="title!=null">
             and title like concat('%',#{title},'%')
