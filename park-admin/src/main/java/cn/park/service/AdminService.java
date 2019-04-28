@@ -3,10 +3,10 @@ package cn.park.service;
 
 import cn.park.pojo.Admin;
 
-import java.util.Date;
 import java.util.List;
 
 public interface AdminService {
+     //遍历所以管理员信息
     public List<Admin> getAdminByMap(
             String username,
             String identification,
@@ -14,11 +14,19 @@ public interface AdminService {
             String rname,
             String phone,
             String email,
-            Date logintime,
-            Date endtime,
+            String logintime,
+            String endtime,
             String address
     );
-    int addAdmin(Admin admin);
+  /*  int addAdmin(Admin admin);*/
 
     int  update(Admin admin);
+
+   public  List<Admin> getAllAdmin();
+
+    int add2(Admin admin);
+     //根据Id
+    public List<Admin> getAdminById(int id);
+
+
 }

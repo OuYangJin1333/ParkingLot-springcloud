@@ -1,14 +1,14 @@
 package cn.park.service;
 
-import cn.park.pojo.PillDepartment;
+import cn.park.pojo.Pildepartment;
 
 import java.util.List;
 
 public interface PildepartmentService {
 
-    public PillDepartment getMasterNode(Integer id);
+    public Pildepartment getMasterNode(Integer id);
 
-    public List<PillDepartment> getSlaveNodes(Integer id);
+    public List<Pildepartment> getSlaveNodes(Integer id);
 
-    public List<PillDepartment> getAll();
+    public List<Pildepartment> getAll();
 }

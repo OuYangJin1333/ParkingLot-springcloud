@@ -4,7 +4,6 @@ package cn.park.mapper;
 import cn.park.pojo.Admin;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
 public interface AdminMapper {
@@ -16,11 +15,27 @@ public List<Admin> getAdminByMap(
         @Param("rname") String rname,
         @Param("phone") String phone,
         @Param("email") String email,
-        @Param("logintime") Date logintime,
-        @Param("endtime") Date endtime,
+        @Param("logintime") String logintime,
+        @Param("endtime") String endtime,
         @Param("address") String address);
 
-  int  addAdmin(Admin admin);
+ /* int  addAdmin(Admin admin);*/
 
+ /*
+ * 修改管理员用户
+ * */
   int update(Admin admin);
+
+    /**
+     * 添加管理员用户
+     * */
+    int add2(Admin admin);
+
+     /**
+      * 根据id查询信息
+      * */
+   public List<Admin> getAdminById(@Param("id") int id);
+
+
+
 }

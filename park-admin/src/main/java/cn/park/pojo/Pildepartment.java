@@ -3,13 +3,13 @@ package cn.park.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PillDepartment {
+public class Pildepartment {
     private Integer id;
     private  String name ;
     private  Integer parentId;
-    private List<PillDepartment> nodes = new ArrayList();
+    private List<Pildepartment> nodes = new ArrayList();
 
-    @Override
+
     public String toString() {
         return "Pildepartment{" +
                 "id=" + id +
@@ -19,15 +19,24 @@ public class PillDepartment {
                 '}';
     }
 
+
+    public String toString1() {
+        return "Pildepartment{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parentId=" + parentId +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public List<PillDepartment> getNodes() {
+    public List<Pildepartment> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<PillDepartment> nodes) {
+    public void setNodes(List<Pildepartment> nodes) {
         this.nodes = nodes;
     }
 

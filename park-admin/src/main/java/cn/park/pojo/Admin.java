@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Admin {
 
-   private   int   id;
+    private   int   id;
     private   String  username; //用户名
     private  String  password;
     private  String  email;
@@ -21,10 +21,11 @@ public class Admin {
     private  int departmentId;//部门外键
     @ApiModelProperty(   hidden = true)
     private  int  roleId;   //角色外键
-    @ApiModelProperty(   hidden = true)
+    //@ApiModelProperty(   hidden = true)
     private  String  dname;   //部门名称
-    @ApiModelProperty(   hidden = true)
+    //@ApiModelProperty(   hidden = true)
     private  String  rname;   //部门名称
+
 
     @Override
     public String toString() {

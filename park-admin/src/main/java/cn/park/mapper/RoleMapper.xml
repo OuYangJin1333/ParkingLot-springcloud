@@ -4,6 +4,52 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.park.mapper.RoleMapper">
     <select id="getAllRole" resultType="cn.park.pojo.Role">
-      SELECT  * FROM `pil_role`
+     SELECT
+id,
+role_name AS  rname,
+create_time AS createtime,
+`status`,
+`desc`,
+deapartmentId AS departmentId
+ FROM
+ pil_role
+        <if test="role_name!=null || role_name!=''">
+            role_name=#{rname}
+        </if>
+
     </select>
+
+    <select id="getRole" resultType="cn.park.pojo.Role">
+         SELECT pil_role.id ,
+          pil_role.`role_name` AS rname ,
+          pil_role.`desc`,
+          pil_department.`name` AS dname ,
+          pil_role.`status`
+           FROM pil_role,pil_department
+          where pil_role.deapartmentId =pil_department.id
+
+     </select>
+
+
+
+        <insert id="add" parameterType="cn.park.pojo.Admin" >
+            INSERT INTO
+            `parkinglot`.`pil_role`
+            ( `role_name`,
+              `create_time`,
+              `status`,
+              `desc`,
+              `deapartmentId`)
+            VALUES
+            (
+            #{rname,jdbcType=VARCHAR},#{createtime,jdbcType=DATE},
+            #{status,jdbcType=BIGINT},#{desc,jdbcType=VARCHAR},
+            #{departmentId,jdbcType=BIGINT});
+        </insert>
+
+      <delete id="delete"  parameterType="java.lang.Integer">
+           DELETE  FROM  pil_role
+           WHERE id=#{id,jdbcType=BIGINT}
+      </delete>
+
 </mapper>
