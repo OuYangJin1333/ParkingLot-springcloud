@@ -1,6 +1,6 @@
 package cn.park.service.impl;
 
-import cn.park.Repository.PartRepository;
+import cn.park.repository.PartRepository;
 import cn.park.mapper.PartMapper;
 import cn.park.pojo.Part;
 import cn.park.service.PartService;

@@ -1,6 +1,6 @@
 package cn.park.service.impl;
 
-import cn.park.Repository.StopCarRepository;
+import cn.park.repository.StopCarRepository;
 import cn.park.mapper.StopMapper;
 import cn.park.pojo.StopCar;
 import cn.park.service.StopCarService;
@@ -10,7 +10,6 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;

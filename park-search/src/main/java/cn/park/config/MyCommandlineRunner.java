@@ -1,5 +1,5 @@
 package cn.park.config;
-import cn.park.Repository.PilLogRepository;
+import cn.park.repository.PilLogRepository;
 import cn.park.service.PilLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
