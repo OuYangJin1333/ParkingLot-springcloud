@@ -1,4 +1,6 @@
 package cn.park.controller;
+
+import cn.park.bean.ChargePdf.ViewPDF1;
 import cn.park.export.ExportCharge;
 import cn.park.pojo.Area;
 import cn.park.pojo.Charge;
@@ -13,9 +15,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pil/charge")
@@ -40,7 +48,7 @@ public class ChargeController {
                                   @RequestParam(value="endTime",required=false,defaultValue="")String endTime,
                                   @RequestParam(value = "pageIndex",required = false,defaultValue = "1") @ApiParam(value = "页数") Integer pageIndex,
                                   @RequestParam(value = "pageSize",defaultValue = "5") @ApiParam(value = "页面大小") Integer pageSize){
-        PageHelper.startPage(pageIndex,pageSize);
+        PageHelper.startPage(pageIndex-1,pageSize);
         List<Charge> cList=chargeService.findByParam(name, aname, partName, carNumber, payType, beginTime, endTime);
         return new RespBean().pageSuccess(cList);
     }
@@ -65,5 +73,13 @@ public class ChargeController {
         return ExportCharge.exportExcel(chargeService.getAllCharge());
     }
 
+    @RequestMapping(value = "/exportpdf",method = RequestMethod.GET)
+    @ApiOperation(value = "导出pdf数据")
+    public ModelAndView printPdf() throws Exception{
+        List<Charge> chargeList=chargeService.getAllCharge();
+        Map<String, Object> model = new HashMap<>();
+        model.put("sheet3", chargeList);
+        return new ModelAndView(new ViewPDF1(), model);
+    }
 
 }

@@ -23,6 +23,7 @@
         AND pil_info.`id`=pil_stop_info.`pid`
         AND pil_area.`id`=pil_info.`aid`
         AND pil_city.`id`=pil_area.`cid`
+        GROUP BY pil_vip_user.car_number
         <if test="name!='' and name!=null">
             and pil_city.name=#{name}
         </if>

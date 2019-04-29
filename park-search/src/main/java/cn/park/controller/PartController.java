@@ -1,5 +1,6 @@
 package cn.park.controller;
 
+import cn.park.bean.ViewPDF;
 import cn.park.export.ExportPart;
 import cn.park.pojo.Part;
 import cn.park.service.PartService;
@@ -11,6 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pil/part")
@@ -32,6 +38,15 @@ public class PartController {
     @ApiOperation(value = "导出数据")
     public ResponseEntity<byte[]> exportPart(){
         return ExportPart.exportExcel(partService.getAll());
+    }
+
+    @RequestMapping(value = "/exportpdf",method = RequestMethod.GET)
+    @ApiOperation(value = "导出pdf数据")
+    public ModelAndView printPdf() throws Exception{
+        List<Part> dictionaryList=partService.getAll();
+        Map<String, Object> model = new HashMap<>();
+        model.put("sheet1", dictionaryList);
+        return new ModelAndView(new ViewPDF(), model);
     }
 
     @PostMapping("/findAllName")

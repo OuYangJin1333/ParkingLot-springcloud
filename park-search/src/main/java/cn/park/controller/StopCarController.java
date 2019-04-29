@@ -1,6 +1,7 @@
 package cn.park.controller;
 
 import cn.park.bean.RespBean;
+import cn.park.bean.StopCarPdf.ViewPDF2;
 import cn.park.export.ExportStopCar;
 import cn.park.pojo.StopCar;
 import cn.park.service.StopCarService;
@@ -11,6 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pil/stopcar")
@@ -32,5 +38,14 @@ public class StopCarController {
     @ApiOperation(value = "导出停车记录数据")
     public ResponseEntity<byte[]> exportCar() {
         return ExportStopCar.exportExcel(stopCarService.findAllStop());
+    }
+
+    @RequestMapping(value = "/exportpdf",method = RequestMethod.GET)
+    @ApiOperation(value = "导出pdf数据")
+    public ModelAndView printPdf() throws Exception{
+        List<StopCar> dictionaryList=stopCarService.findAllStop();
+        Map<String, Object> model = new HashMap<>();
+        model.put("sheet2", dictionaryList);
+        return new ModelAndView(new ViewPDF2(), model);
     }
 }

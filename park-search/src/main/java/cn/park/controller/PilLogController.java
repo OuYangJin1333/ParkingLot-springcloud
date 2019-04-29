@@ -1,5 +1,6 @@
 package cn.park.controller;
 
+import cn.park.bean.LogPdf.ViewPDF4;
 import cn.park.bean.RespBean;
 import cn.park.export.ExportLog;
 import cn.park.pojo.PilLog;
@@ -11,6 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pil/log")
@@ -34,6 +40,14 @@ public class PilLogController {
         return ExportLog.exportExcel(pilLogService.findByList());
     }
 
+    @RequestMapping(value = "/exportpdf",method = RequestMethod.GET)
+    @ApiOperation(value = "导出pdf数据")
+    public ModelAndView printPdf() throws Exception{
+        List<PilLog> pilLogList=pilLogService.findByList();
+        Map<String, Object> model = new HashMap<>();
+        model.put("sheet4", pilLogList);
+        return new ModelAndView(new ViewPDF4(), model);
+    }
     @RequestMapping(value = "/deletLog",method = RequestMethod.DELETE)
     @ApiOperation(value = "删除日志记录")
     public Object deleteLog(Integer id){
